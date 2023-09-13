@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: martina <martina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mbasile <mbasile@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 13:10:51 by martina           #+#    #+#             */
-/*   Updated: 2023/09/05 15:41:32 by martina          ###   ########.fr       */
+/*   Updated: 2023/09/12 16:08:43 by mbasile          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,6 @@ int	ft_usleep(useconds_t time)
 		usleep(time / 10);
 	return (0);
 }
-
-//int     error(char *str, t_data *t_data)
-//{
-//    printf("%s\n", str);
-//    if (t_data)
-//        ft_exit(t_data);
-//    return (1);
-//}
 
 int	ft_atoi(const char *str)
 {
@@ -79,5 +71,3 @@ int	ft_strcmp(char *s1, char *s2)
         i++;
     return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
-
-

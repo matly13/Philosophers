@@ -6,7 +6,7 @@ RM				= rm -f
 CFLAGS			= -Wall -Wextra -Werror -I.
 LIBS			= -lpthread
 
-NAME			= philo_three
+NAME			= philo
 
 all:			$(NAME)
 

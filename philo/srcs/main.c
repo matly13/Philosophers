@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: martina <martina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mbasile <mbasile@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 12:22:14 by martina           #+#    #+#             */
-/*   Updated: 2023/09/04 16:36:33 by martina          ###   ########.fr       */
+/*   Updated: 2023/09/13 18:27:54 by mbasile          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,11 @@ int	case_one(t_data *data)
 
 void	clear_data(t_data	*data)
 {
-	if (data->tid)
-		free(data->tid);
-	if (data->forks)
-		free(data->forks);
-	if (data->philos)
-		free(data->philos);
+	int	i;
+
+	i = -1;
+	while (++i < data->philo_num)
+		free(&data->philos[i]);
 }
 
 void	ft_exit(t_data *data)
@@ -44,9 +43,8 @@ void	ft_exit(t_data *data)
 		pthread_mutex_destroy(&data->forks[i]);
 		pthread_mutex_destroy(&data->philos[i].lock);
 	}
+	free(data->philos);
 	pthread_mutex_destroy(&data->write);
-	pthread_mutex_destroy(&data->lock);
-	clear_data(data);
 }
 
 int	error(char *str, t_data *data)
@@ -71,7 +69,6 @@ int	main(int argc, char **argv)
 		return (case_one(&data));
 	if (thread_init(&data))
 		return (1);
-	ft_exit(&data);
+	// ft_exit(&data);
 	return (0);
 }
-

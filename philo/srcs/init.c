@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: martina <martina@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mbasile <mbasile@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 18:32:38 by martina           #+#    #+#             */
-/*   Updated: 2023/09/05 14:21:09 by martina          ###   ########.fr       */
+/*   Updated: 2023/09/13 18:32:13 by mbasile          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-
 
 int	alloc(t_data *data)
 {
@@ -56,7 +55,7 @@ void	init_philos(t_data *data)
 	{
 		data->philos[i].data = data;
 		data->philos[i].id = i + 1;
-		data->philos[i].time_to_die = data->death_time;
+		data->philos[i].time_to_die = 0;
 		data->philos[i].eat_cont = 0;
 		data->philos[i].eating = 0;
 		data->philos[i].status = 0;
@@ -81,7 +80,7 @@ int	init_data(t_data *data, char **argv, int argc)
 	data->dead = 0;
 	data->finished = 0;
 	pthread_mutex_init(&data->write, NULL);
-	pthread_mutex_init(&data->lock, NULL);
+	// pthread_mutex_init(&data->lock, NULL);
 	return (0);
 }
 
@@ -97,22 +96,41 @@ int	init(t_data *data, char **argv, int argc)
 	return (0);
 }
 
+int	checker(t_data *data)
+{
+	int	i;
+
+	while (1)
+	{
+		i = -1;
+		while (++i < data->philo_num)
+		{
+			if(!ft_check_death(&data->philos[i]) || data->finished == data->philo_num)
+			{
+				ft_exit(data);
+				return (0);
+			}
+		}
+	}
+	return (1);
+}
+
 int	thread_init(t_data *data)
 {
-    int	i;
+	int	i;
 
-    i = -1;
-    data->start_time = get_time();
-    while (++i < data->philo_num)
-    {
-        if (pthread_create(&data->tid[i], NULL, &routine, &data->philos[i]))
-            return (error(TH_ERR, data));
-        pthread_detach(data->tid[i]);
-    }
-    while (data->dead == 0 && data->finished == 0)
-        ft_usleep(0);
-    ft_exit(data);
-    return (0);
+	i = -1;
+	data->start_time = get_time();
+	while (++i < data->philo_num)
+	{
+		data->started++;
+		messages(THINKING, &data->philos[i]);
+		if (pthread_create(&data->tid[i], NULL, &routine, &data->philos[i]))
+			return (error(TH_ERR, data));
+		pthread_detach(data->tid[i]);
+	}
+	checker(data);
+	return (0);
 }
 
 int	input_checker(char **argv)
