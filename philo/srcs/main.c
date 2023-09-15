@@ -6,7 +6,7 @@
 /*   By: mbasile <mbasile@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 12:22:14 by martina           #+#    #+#             */
-/*   Updated: 2023/09/13 18:27:54 by mbasile          ###   ########.fr       */
+/*   Updated: 2023/09/14 10:37:30 by mbasile          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,5 @@ int	main(int argc, char **argv)
 		return (case_one(&data));
 	if (thread_init(&data))
 		return (1);
-	// ft_exit(&data);
 	return (0);
 }

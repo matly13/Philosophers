@@ -6,7 +6,7 @@
 /*   By: mbasile <mbasile@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 13:10:51 by martina           #+#    #+#             */
-/*   Updated: 2023/09/12 16:08:43 by mbasile          ###   ########.fr       */
+/*   Updated: 2023/09/14 14:42:53 by mbasile          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 u_int64_t	get_time(void)
 {
-    struct timeval	tv;
-    u_int64_t		time;
+	struct timeval	tv;
+	u_int64_t		time;
 
-    gettimeofday(&tv, NULL);
-    time = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
-    return (time);
+	gettimeofday(&tv, NULL);
+	time = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
+	return (time);
 }
 
 int	ft_usleep(useconds_t time)
@@ -34,40 +34,40 @@ int	ft_usleep(useconds_t time)
 
 int	ft_atoi(const char *str)
 {
-    int		i;
-    int		sign;
-    long	nb;
+	int		i;
+	int		sign;
+	long	nb;
 
-    i = 0;
-    sign = 1;
-    nb = 0;
-    while (str[i] && (str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
-            || str[i] == '\f' || str[i] == '\r' || str[i] == ' '))
-        i++;
-    if (str[i] && (str[i] == '-' || str[i] == '+'))
-        if (str[i++] == '-')
-            sign = -1;
-    while (str[i] && (str[i] >= '0' && str[i] <= '9'))
-        nb = (nb * 10) + (str[i++] - '0');
-    return (nb * sign);
+	i = 0;
+	sign = 1;
+	nb = 0;
+	while (str[i] && (str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
+			|| str[i] == '\f' || str[i] == '\r' || str[i] == ' '))
+		i++;
+	if (str[i] && (str[i] == '-' || str[i] == '+'))
+		if (str[i++] == '-')
+			sign = -1;
+	while (str[i] && (str[i] >= '0' && str[i] <= '9'))
+		nb = (nb * 10) + (str[i++] - '0');
+	return (nb * sign);
 }
 
 int	ft_strlen(char *str)
 {
-    int	i;
+	int	i;
 
-    i = 0;
-    while (str[i])
-        i++;
-    return (i);
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
 
 int	ft_strcmp(char *s1, char *s2)
 {
-    int	i;
+	int	i;
 
-    i = 0;
-    while (s1[i] && s2[i] && s1[i] == s2[i])
-        i++;
-    return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

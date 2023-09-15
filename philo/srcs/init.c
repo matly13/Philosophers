@@ -6,25 +6,11 @@
 /*   By: mbasile <mbasile@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 18:32:38 by martina           #+#    #+#             */
-/*   Updated: 2023/09/13 18:32:13 by mbasile          ###   ########.fr       */
+/*   Updated: 2023/09/14 12:51:53 by mbasile          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-
-int	alloc(t_data *data)
-{
-	data->tid = malloc(sizeof(pthread_t) * data->philo_num);
-	if (!data->tid)
-		return (error(ALLOC_ERR_1, data));
-	data->forks = malloc(sizeof(pthread_mutex_t) * data->philo_num);
-	if (!data->forks)
-		return (error(ALLOC_ERR_2, data));
-	data->philos = malloc(sizeof(t_philo) * data->philo_num);
-	if (!data->philos)
-		return (error(ALLOC_ERR_3, data));
-	return (0);
-}
 
 int	init_forks(t_data *data)
 {
@@ -80,7 +66,6 @@ int	init_data(t_data *data, char **argv, int argc)
 	data->dead = 0;
 	data->finished = 0;
 	pthread_mutex_init(&data->write, NULL);
-	// pthread_mutex_init(&data->lock, NULL);
 	return (0);
 }
 
@@ -94,25 +79,6 @@ int	init(t_data *data, char **argv, int argc)
 		return (1);
 	init_philos(data);
 	return (0);
-}
-
-int	checker(t_data *data)
-{
-	int	i;
-
-	while (1)
-	{
-		i = -1;
-		while (++i < data->philo_num)
-		{
-			if(!ft_check_death(&data->philos[i]) || data->finished == data->philo_num)
-			{
-				ft_exit(data);
-				return (0);
-			}
-		}
-	}
-	return (1);
 }
 
 int	thread_init(t_data *data)
@@ -132,39 +98,3 @@ int	thread_init(t_data *data)
 	checker(data);
 	return (0);
 }
-
-int	input_checker(char **argv)
-{
-	int	i;
-	int	j;
-
-	i = 1;
-	while (argv[i])
-	{
-		j = 0;
-		while (argv[i][j])
-		{
-			if (argv[i][j] == ' ')
-			{
-				j++;
-				continue ;
-			}
-			if ((argv[i][j] < 48 || argv[i][j] > 57))
-				return (error(ERR_IN_1, NULL));
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}
-    
-//char	ft_strings(char c, char *str)
-//{
-//	while (*str)
-//	{
-//		if (*str == c)
-//			return (true);
-//		str++;
-//	}
-//	return (false);
-//}

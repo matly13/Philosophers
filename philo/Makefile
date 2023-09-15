@@ -1,4 +1,4 @@
-SRCS			= srcs/main.c srcs/utils.c srcs/actions.c srcs/init.c srcs/print.c 
+SRCS			= srcs/main.c srcs/utils.c srcs/actions.c srcs/init.c srcs/print.c srcs/check.c
 OBJS			= $(SRCS:.c=.o)
 
 CC				= gcc
